@@ -5,6 +5,12 @@ LEARNING PAGE NEEDS:
 TESTING PAGE NEEDS:
 -integrate AI as checker
 
+DATABASE ON 
+-ACCOUNT SIGN UP AND LOG IN
+-ACCOUNT USER PROGRESSION
+
 ASSIGN
 -Judelyn Buyagon
 -Gabriel Briones
+-Fritz
+-Ric
