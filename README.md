@@ -16,14 +16,28 @@ Requires Node 20.6+ (uses built-in `--env-file`, no dotenv).
 
 ```
 src/
-  server.js              # starts the HTTP server
-  app.js                 # express app, middleware, routes
-  config/env.js          # environment variables
-  lib/supabase.js        # supabaseAdmin (service role) + supabaseForUser (RLS)
-  middleware/auth.js     # requireAuth: verifies Supabase access token
-  middleware/errorHandler.js
-  routes/                # one file per feature, mounted in routes/index.js
+  server.js                 # starts the HTTP server
+  app.js                    # express app: middleware, routes, error handling
+  config/
+    env.js                  # environment variables
+    supabase.js             # supabaseAdmin (service role) + supabaseForUser (RLS)
+  routes/                   # URL -> controller mapping, one file per feature
+    index.js                # mounts all feature routes under /api
+  controllers/              # handle req/res, call services
+  services/                 # business logic + Supabase queries
+  middlewares/
+    auth.middleware.js      # requireAuth: verifies Supabase access token
+    error.middleware.js     # 404 + JSON error responses
+  utils/
+    ApiError.js             # throw ApiError.notFound(...) etc. for HTTP errors
 ```
+
+### Adding a feature (e.g. chapters)
+
+1. `services/chapter.service.js`: Supabase queries
+2. `controllers/chapter.controller.js`: reads `req`, calls the service, sends the response
+3. `routes/chapter.routes.js`: maps URLs to controllers (add `requireAuth` where needed)
+4. Mount it in `routes/index.js`: `router.use('/chapters', chapterRoutes)`
 
 ## Auth
 
